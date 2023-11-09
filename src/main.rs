@@ -14,11 +14,15 @@ fn main() {
     println!("Visual fingerprint:\n{}", visual_fingerprint);
 }
 
+/// Encode an array of 16 `u8`s into a String of 6 emoji-and-word pairs
 fn key_to_emoji_and_words(key: [u8; 16]) -> String {
     let mut visual_fingerprint: String = String::new();
 
     let emoji_list = &include_lines!("emoji_list.txt");
     let word_list = &include_lines!("word_list.txt");
+    // It's important that these lists have these exact lengths
+    assert!(emoji_list.len() == 203);
+    assert!(word_list.len() == 13016);
 
     let encoded_key = encode(key);
     for d in encoded_key {
@@ -28,12 +32,17 @@ fn key_to_emoji_and_words(key: [u8; 16]) -> String {
     visual_fingerprint.trim().to_string()
 }
 
+/// Takes a base-2655468 "digit" of the 128-bit key and converts it into x,y  coordinates
+/// Where the x can range from 0 to 202 and the y can range from 0 to 13,015 (May be off by one?)
+/// I picked this idea up from a paper on the Drunken Bishop
+/// http://dirk-loss.de/sshvis/drunken_bishop.pdf
 fn get_x_and_y_from_part_of_key(part_of_key: usize) -> (usize, usize) {
     let x = part_of_key % 204;
     let y = (part_of_key - x) / 204;
     (x, y)
 }
 
+/// Encodes a 128 u8 array into 6 "digits" of base 2655468
 fn encode(value: [u8; 16]) -> Vec<usize> {
     let mut value = u128::from_ne_bytes(value);
     let base = 2655468;
