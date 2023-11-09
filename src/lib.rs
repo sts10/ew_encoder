@@ -10,7 +10,7 @@ pub fn key_to_emoji_and_words(key: [u8; 16]) -> String {
     assert!(emoji_list.len() == 203);
     assert!(word_list.len() == 13016);
 
-    let encoded_key = encode(key);
+    let encoded_key = to_custom_base(key);
     for d in encoded_key {
         let (x, y) = get_x_and_y_from_part_of_key(d);
         visual_fingerprint = visual_fingerprint + " " + emoji_list[x] + " " + word_list[y];
@@ -29,7 +29,7 @@ fn get_x_and_y_from_part_of_key(part_of_key: usize) -> (usize, usize) {
 }
 
 /// Encodes a 128 u8 array into 6 "digits" of base 2655468
-pub fn encode(value: [u8; 16]) -> Vec<usize> {
+pub fn to_custom_base(value: [u8; 16]) -> Vec<usize> {
     let mut value = u128::from_ne_bytes(value);
     let base = 2655468;
     let mut digits_vec: Vec<usize> = vec![];
