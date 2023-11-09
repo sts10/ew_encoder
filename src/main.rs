@@ -1,24 +1,30 @@
 use include_lines::include_lines;
 
 fn main() {
-    let key: u128 = 14732711889470983911895342650328760640; // = rand::random::<u128>();
-    println!("Encoded {} as {:?}", key, encode(key));
+    let sample_key: [u8; 16] = [
+        64, 65, 86, 20, 87, 170, 254, 198, 217, 225, 243, 255, 198, 106, 21, 11,
+    ];
+    println!(
+        "Encoded sample key {:?} as {:?}",
+        sample_key,
+        encode(sample_key)
+    );
 
-    let visual_fingerprint = key_to_emoji_and_words(key);
+    let visual_fingerprint = key_to_emoji_and_words(sample_key);
     println!("Visual fingerprint:\n{}", visual_fingerprint);
 
-    let max_key_possible = u128::MAX;
+    let max_key_possible = u128::MAX.to_ne_bytes();
     let visual_fingerprint = key_to_emoji_and_words(max_key_possible);
     println!(
         "Let's make sure we can encode the u128::MAX:\n{}",
         visual_fingerprint
     );
 
-    let visual_fingerprint = key_to_emoji_and_words(0 as u128);
+    let visual_fingerprint = key_to_emoji_and_words(0u128.to_ne_bytes());
     println!("Let's make sure we can encode 0\n{}", visual_fingerprint);
 }
 
-fn key_to_emoji_and_words(key: u128) -> String {
+fn key_to_emoji_and_words(key: [u8; 16]) -> String {
     let mut visual_fingerprint: String = String::new();
 
     let emoji_list = &include_lines!("emoji_list.txt");
@@ -39,9 +45,9 @@ fn get_x_and_y_from_key(key: usize) -> (usize, usize) {
     (x, y)
 }
 
-fn encode(value: u128) -> Vec<usize> {
+fn encode(value: [u8; 16]) -> Vec<usize> {
+    let mut value = u128::from_ne_bytes(value);
     let base = 2655468;
-    let mut value = value;
     let mut digits_vec: Vec<usize> = vec![];
     while value > 0 {
         let digit = value % base; // digit in [0..base)
