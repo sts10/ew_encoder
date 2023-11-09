@@ -6,6 +6,16 @@ fn main() {
 
     let visual_fingerprint = key_to_emoji_and_words(key);
     println!("Visual fingerprint:\n{}", visual_fingerprint);
+
+    let max_key_possible = u128::MAX;
+    let visual_fingerprint = key_to_emoji_and_words(max_key_possible);
+    println!(
+        "Let's make sure we can encode the u128::MAX:\n{}",
+        visual_fingerprint
+    );
+
+    let visual_fingerprint = key_to_emoji_and_words(0 as u128);
+    println!("Let's make sure we can encode 0\n{}", visual_fingerprint);
 }
 
 fn key_to_emoji_and_words(key: u128) -> String {
@@ -17,7 +27,7 @@ fn key_to_emoji_and_words(key: u128) -> String {
     let encoded_key = encode(key);
     for d in encoded_key {
         let (x, y) = get_x_and_y_from_key(d);
-        println!("x is {}; y is {}", x, y);
+        // println!("x is {}; y is {}", x, y);
         visual_fingerprint = visual_fingerprint + " " + emoji_list[x] + " " + word_list[y];
     }
     visual_fingerprint.trim().to_string()
@@ -39,6 +49,9 @@ fn encode(value: u128) -> Vec<usize> {
         value /= base; // integer div
     }
     digits_vec.reverse();
+    while digits_vec.len() < 6 {
+        digits_vec.push(0);
+    }
     digits_vec
 }
 
