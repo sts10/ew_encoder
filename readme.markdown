@@ -11,6 +11,12 @@ Finally, we convert this into 6 emoji-word pairs:
 🚂 anthropologist 🦢 presenting 🍀 transaction 📝 trend 🐼 radiation 🧵 understandings
 ```
 
+## Why use exactly 13016 words and 203 emoji?
+
+Read and/or run `find_good_list_length_pairs.rs` file for the best answer to this question.
+```shell
+cargo run --bin find_good_list_length_pairs
+```
 
 ## License
 
