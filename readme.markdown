@@ -1,7 +1,10 @@
 # Emoji-Word Encoder
 
+**Proof of concept**
+
 Encodes 128 bits (16 `u8`s) into 6 pairs of emoji and words.
 
+Running `cargo run` prints a little demo:
 ```text
 If we have a 128-bit key of 
 [64, 65, 86, 20, 87, 170, 254, 198, 217, 225, 243, 255, 198, 106, 21, 11]
@@ -11,9 +14,11 @@ Finally, we convert this into 6 emoji-word pairs:
 🚂 anthropologist 🦢 presenting 🍀 transaction 📝 trend 🐼 radiation 🧵 understandings
 ```
 
-## Why use exactly 13016 words and 203 emoji?
+## Why use lists of exactly 203 emoji and 13016 words?
 
 Read and/or run `find_good_list_length_pairs.rs` file for the best answer to this question.
+
+How to run it using Cargo:
 ```shell
 cargo run --bin find_good_list_length_pairs
 ```
