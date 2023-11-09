@@ -26,6 +26,9 @@ fn log_base_2(n: f64) -> f64 {
     n.ln() / 2_f64.ln()
 }
 
+/// Here, we set the tolerance for encoding ineffiency
+/// 0.000001 seems about right, though 0.00001 adds some more
+/// interesting list-length-pair options
 fn is_just_less_than_natural(n: f64) -> bool {
     n.ceil() - n < 0.000001
 }
