@@ -4,14 +4,16 @@
 
 Encodes 128 bits (16 `u8`s) into 6 pairs of emoji and words.
 
-Running `cargo run` prints a little demo:
+Running `cargo run --bin ew_encoder` prints a little demo:
 ```text
 If we have a 128-bit key of 
 [64, 65, 86, 20, 87, 170, 254, 198, 217, 225, 243, 255, 198, 106, 21, 11]
-We first convert it into base-2655468:
-[111577, 1810868, 2455782, 2472407, 1900768, 2506320]
+We first convert it into base-2642247:
+[114397, 691184, 2124657, 1576564, 1359289, 156987]
 Finally, we convert this into 6 emoji-word pairs:
-🚂 anthropologist 🦢 presenting 🍀 transaction 📝 trend 🐼 radiation 🧵 understandings
+👍 anxieties 🧢 differences 🎧 servants 🎲 northernmost ⏰ least 🎷 asserting
+MAX key in base-2642247 is:
+[2642240, 1843709, 2421924, 2104602, 1961804, 2523288]
 ```
 
 ## Why use lists of exactly 203 emoji and 13016 words?

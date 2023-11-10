@@ -18,21 +18,24 @@ pub fn key_to_emoji_and_words(key: [u8; 16]) -> String {
     visual_fingerprint.trim().to_string()
 }
 
-/// Takes a base-2655468 "digit" of the 128-bit key and converts it into x,y  coordinates
+/// Takes a base-2642247 "digit" of the 128-bit key and converts it into x,y  coordinates
 /// Where the x can range from 0 to 202 and the y can range from 0 to 13,015 (May be off by one?)
 /// I picked this idea up from a paper on the Drunken Bishop
 /// http://dirk-loss.de/sshvis/drunken_bishop.pdf
 pub fn get_x_and_y_from_part_of_key(part_of_key: usize) -> (usize, usize) {
-    let x = part_of_key % 204;
-    let y = (part_of_key - x) / 204;
+    let x = part_of_key % 203;
+    let y = (part_of_key - x) / 203;
     (x, y)
 }
 
-/// Encodes a 128 u8 array into 6 "digits" of base 2655468.
-/// 203 + 204 * 13016 == 2_655_457
+pub fn calculate_base() -> u128 {
+    (202 + 203 * 13015) as u128 // 7 low
+}
+/// Encodes a 128 u8 array into 6 "digits" of base 2642247.
+/// 202 + 203 * 13015 ==  
 pub fn to_custom_base(value: [u8; 16]) -> Vec<usize> {
     let mut value = u128::from_ne_bytes(value);
-    let base = 2655468;
+    let base = calculate_base();
     let mut digits_vec: Vec<usize> = vec![];
     while value > 0 {
         let digit = value % base; // digit in [0..base)
@@ -51,7 +54,7 @@ fn can_convert_between_x_y_pair_and_key() {
     // a random x y pair
     let xy = (199, 9444);
     fn get_key_from_x_y_pair(x: usize, y: usize) -> usize {
-        x + 204 * y
+        x + 203 * y
     }
 
     assert_eq!(
@@ -60,17 +63,20 @@ fn can_convert_between_x_y_pair_and_key() {
     );
 }
 
-use std::collections::HashSet;
 #[test]
 fn can_convert_from_x_y_pair_to_partial_key_for_all_possible_values() {
+    use std::collections::HashSet;
     let mut all_possible_pairs: HashSet<(usize, usize)> = HashSet::new();
-    for partial_key in 0..2655468 {
-        let (this_x, this_y) = get_x_and_y_from_part_of_key(partial_key);
+    for partial_key in 0..calculate_base() {
+        let (this_x, this_y) = get_x_and_y_from_part_of_key(partial_key.try_into().unwrap());
 
         assert!(!all_possible_pairs.contains(&(this_x, this_y)));
         all_possible_pairs.insert((this_x, this_y));
     }
-    assert_eq!(all_possible_pairs.len(), 2655468);
+    assert_eq!(
+        all_possible_pairs.len(),
+        calculate_base().try_into().unwrap()
+    );
 }
 
 #[test]
@@ -82,7 +88,7 @@ fn can_encode_a_sample_key() {
 
     assert_eq!(
         visual_fingerprint,
-        "🚂 anthropologist 🦢 presenting 🍀 transaction 📝 trend 🐼 radiation 🧵 understandings"
+        "👍 anxieties 🧢 differences 🎧 servants 🎲 northernmost ⏰ least 🎷 asserting"
     );
 }
 
@@ -92,7 +98,7 @@ fn can_encode_max_u128() {
     let visual_fingerprint = key_to_emoji_and_words(max_key_possible);
     assert_eq!(
         visual_fingerprint,
-        "🪵 volcanic 💾 proceeds 🛁 defect 🦢 collaborating 🚂 seventies 🍼 currency"
+        "🚕 zoo 🎮 properly 🔊 tong 👀 seeks ⛺ relief 🛟 uttered"
     );
 }
 
