@@ -1,6 +1,6 @@
-# Emoji-Word Encoder
+# Inefficient Multi-List Encoder
 
-**Proof of concept**
+A **proof of concept** emoji-word encoder.
 
 Encodes 128 bits (16 `u8`s) into 6 pairs of emoji and words.
 
@@ -18,12 +18,16 @@ MAX key in base-2642247 is:
 
 ## Why use lists of exactly 203 emoji and 13016 words?
 
-Read and/or run `find_good_list_length_pairs.rs` file for the best answer to this question.
+The entropy of a pair of emoji + word is `log2(203) + log2(13016) == 21.33333`. The key is that `(log2(203) + log2(13016)) * 6` is just above `128` (`128.0000067171`). This means that 6 pairs of emoji+word can encode 128 bits with a little bit of leftover (inefficiency). I contend that this inefficiency is worth it in some use-cases, since finding 203 visually distinct emoji and 13,016 words is feasible.
+
+As you might be able to tell, I didn't pick 203 and 13016 randomly. Read and/or run `find_good_list_length_pairs.rs` file to see how I found these two values.
 
 How to run it using Cargo:
 ```shell
 cargo run --bin find_good_list_length_pairs
 ```
+
+I believe this process is the most interesting part of this project.
 
 ## License
 
