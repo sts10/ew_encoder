@@ -7,8 +7,8 @@ pub fn key_to_emoji_and_words(key: [u8; 16]) -> String {
     let emoji_list = &include_lines!("emoji_list.txt");
     let word_list = &include_lines!("word_list.txt");
     // It's important that these lists have these exact lengths
-    // assert!(emoji_list.len() == 203);
-    // assert!(word_list.len() == 13016);
+    assert!(emoji_list.len() == 203);
+    assert!(word_list.len() == 13016);
 
     let encoded_key = to_custom_base(key);
     for d in encoded_key {
@@ -28,11 +28,14 @@ pub fn get_x_and_y_from_part_of_key(part_of_key: usize) -> (usize, usize) {
     (x, y)
 }
 
+/// Calculate what "base" to encode in.
+/// I adapted the formula on page 5 of this paper:
+/// http://dirk-loss.de/sshvis/drunken_bishop.pdf
 pub fn calculate_base() -> u128 {
     (202 + 203 * 13015) as u128 // 7 low
 }
+
 /// Encodes a 128 u8 array into 6 "digits" of base 2642247.
-/// 202 + 203 * 13015 ==  
 pub fn to_custom_base(value: [u8; 16]) -> Vec<usize> {
     let mut value = u128::from_ne_bytes(value);
     let base = calculate_base();
