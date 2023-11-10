@@ -79,7 +79,10 @@ pub fn calculate_base() -> u128 {
 ```
 I adapted the formula on page 5 of this paper on the ["drunken bishop"](http://dirk-loss.de/sshvis/drunken_bishop.pdf). 
 
-In general form, it's: `word_list_1_length - 1 + word_list_1_length * (word_list_2_length - 1)`. 
+In general form, I think it's:
+```
+word_list_1_length - 1 + word_list_1_length * (word_list_2_length - 1) 
+```
 
 I think what we're doing here is creating a formula such that two numbers can be represented by one larger number, but being a little smarter than just multiplying them together. But I could be wrong!
 
