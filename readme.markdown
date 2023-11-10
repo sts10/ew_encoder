@@ -1,4 +1,4 @@
-# Inefficient Multi-List Encoder
+# Emoji-Word Encoder
 
 A **proof of concept** emoji-word encoder.
 
