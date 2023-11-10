@@ -33,7 +33,41 @@ How to run it using Cargo:
 cargo run --bin find_good_list_length_pairs
 ```
 
+### Results
+
+Now, let's say we wanted to be efficient (no wasted pairs). Here are some of our options for the two list lengths:
+
+```text
+Lists of 128 words and 512 emoji would require 8 pairs to represent 128 bits
+Lists of 256 words and 256 emoji would require 8 pairs to represent 128 bits
+Lists of 512 words and 128 emoji would require 8 pairs to represent 128 bits
+Lists of 1024 words and 64 emoji would require 8 pairs to represent 128 bits
+Lists of 2048 words and 32 emoji would require 8 pairs to represent 128 bits
+Lists of 4096 words and 16 emoji would require 8 pairs to represent 128 bits
+```
+
+8 pairs is a lot! Plus never using that many words! Not very inspiring. But that's just the way the math works out... right? 
+
+But what if we excepted length pairs that _over-shot_ our 128-bit goal just a bit. Yes, some possible codes won't be used, but let's just see what these lists would look like (`cargo run --bin find_good_list_length_pairs`). 
+
+```text
+Lists of 6775 words and 390 emoji would require 5.999999378003068 pairs to represent 128 bits
+Lists of 7046 words and 375 emoji would require 5.999999378003069 pairs to represent 128 bits
+Lists of 8130 words and 325 emoji would require 5.999999378003068 pairs to represent 128 bits
+Lists of 9750 words and 271 emoji would require 5.999999378003068 pairs to represent 128 bits
+Lists of 10569 words and 250 emoji would require 5.999999378003069 pairs to represent 128 bits
+Lists of 11389 words and 232 emoji would require 5.999999685133787 pairs to represent 128 bits
+Lists of 13016 words and 203 emoji would require 5.999999685133787 pairs to represent 128 bits
+Lists of 13550 words and 195 emoji would require 5.999999378003068 pairs to represent 128 bits
+Lists of 17615 words and 150 emoji would require 5.999999378003069 pairs to represent 128 bits
+Lists of 19009 words and 139 emoji would require 5.999999224437808 pairs to represent 128 bits
+```
+
+Now we get (a) option for 6 pairs rather than 8 and (b) the word list length and emoji list lengths are much more reasonable/feasible.
+
 I believe this process is the most interesting part of this project.
+
+For the rest of this project, I picked the 13,016 words + 203 emoji pair.
 
 ## Calculating what "base" to encode each "digit" in 
 This function also involved some creative information theory work.
