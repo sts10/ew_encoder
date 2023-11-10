@@ -35,7 +35,7 @@ cargo run --bin find_good_list_length_pairs
 
 ### Results
 
-Now, let's say we wanted to be efficient (no wasted pairs). Here are some of our options for the two list lengths:
+Now, let's say we wanted to be strict about being efficient (no wasted pairs). Here are some of our options for the two list lengths:
 
 ```text
 Lists of 128 words and 512 emoji would require 8 pairs to represent 128 bits
@@ -46,9 +46,9 @@ Lists of 2048 words and 32 emoji would require 8 pairs to represent 128 bits
 Lists of 4096 words and 16 emoji would require 8 pairs to represent 128 bits
 ```
 
-8 pairs is a lot! Plus never using that many words! Not very inspiring. But that's just the way the math works out... right? 
+8 pairs is a lot! Plus, as far as word lists go, 4,096 isn't that much -- we could go up to 8,000 or even 14,000 and not have to use very strange words. Not very inspiring. But that's just the way the math works out... right? 
 
-But what if we excepted length pairs that _over-shot_ our 128-bit goal just a bit. Yes, some possible codes won't be used, but let's just see what these lists would look like (`cargo run --bin find_good_list_length_pairs`). 
+But what if we accept length pairs that _over-shot_ our 128-bit goal just a bit. Yes, some possible codes won't be used, but let's just see what these lists would look like (`cargo run --bin find_good_list_length_pairs`). 
 
 ```text
 Lists of 6775 words and 390 emoji would require 5.999999378003068 pairs to represent 128 bits
