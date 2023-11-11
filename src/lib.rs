@@ -32,7 +32,7 @@ pub fn get_x_and_y_from_part_of_key(part_of_key: usize) -> (usize, usize) {
 /// I adapted the formula on page 5 of this paper:
 /// http://dirk-loss.de/sshvis/drunken_bishop.pdf
 pub fn calculate_base() -> u128 {
-    (202 + 203 * 13015) as u128 // 7 low
+    (203 * 13016) as u128 // 7 low
 }
 
 /// Encodes a 128 u8 array into 6 "digits" of base 2642247.
@@ -91,7 +91,7 @@ fn can_encode_a_sample_key() {
 
     assert_eq!(
         visual_fingerprint,
-        "👍 anxieties 🧢 differences 🎧 servants 🎲 northernmost ⏰ least 🎷 asserting"
+        "👍 anxieties 🍑 appealed 🍦 conscience 🍦 environments 🐼 territorial 🔥 medicines"
     );
 }
 
@@ -101,7 +101,7 @@ fn can_encode_max_u128() {
     let visual_fingerprint = key_to_emoji_and_words(max_key_possible);
     assert_eq!(
         visual_fingerprint,
-        "🚕 zoo 🎮 properly 🔊 tong 👀 seeks ⛺ relief 🛟 uttered"
+        "🙏 zoo 👷 properly 🛁 cap 🦆 dealers 💰 brass 🌲 scope"
     );
 }
 
