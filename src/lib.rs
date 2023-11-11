@@ -28,11 +28,9 @@ pub fn get_x_and_y_from_part_of_key(part_of_key: usize) -> (usize, usize) {
     (x, y)
 }
 
-/// Calculate what "base" to encode in.
-/// I adapted the formula on page 5 of this paper:
-/// http://dirk-loss.de/sshvis/drunken_bishop.pdf
+/// Calculate what "base" to encode in. Just the length of first list * length of second list
 pub fn calculate_base() -> u128 {
-    (203 * 13016) as u128 // 7 low
+    (203 * 13016) as u128
 }
 
 /// Encodes a 128 u8 array into 6 "digits" of base 2642247.
