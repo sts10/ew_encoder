@@ -1,6 +1,6 @@
 # Emoji-Word Encoder
 
-A **proof of concept** inefficient multi-list encoder.
+A **proof of concept** inefficient multi-list encoder. Do NOT actually use this code to encode anything important.
 
 Encodes 128 bits (16 `u8`s) into 6 pairs of emoji and words.
 
