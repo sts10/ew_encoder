@@ -43,4 +43,9 @@ fn main() {
         base,
         to_custom_base(max_key)
     );
+    let visual_fingerprint = key_to_emoji_and_words(max_key);
+    println!(
+        "Encoding this to emoji+word pairs, we get:\n{}",
+        visual_fingerprint
+    );
 }
