@@ -14,6 +14,13 @@ Finally, we convert this into 6 emoji-word pairs:
 👍 anxieties 🍑 appealed 🍦 conscience 🍦 environments 🐼 territorial 🔥 medicines
 ```
 
+My pet theory is that it's a further improvement to break these 6 pairs into two lines: 
+
+```text
+👍 anxieties 🍑 appealed 🍦 conscience 
+🍦 environments 🐼 territorial 🔥 medicines
+```
+
 ## Why use lists of exactly 203 emoji and 13016 words?
 
 The entropy of a pair of emoji + word is `log2(203) + log2(13016) == 21.33333`. 
